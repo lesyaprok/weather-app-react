@@ -1,0 +1,19 @@
+.currentWeather {
+  @apply pt-8 pb-4 pl-3.5 pr-0 sm:p-8 bg-slate-300 bg-opacity-50 shadow-xl flex flex-col justify-center items-center rounded-md;
+}
+
+.location {
+  @apply text-slate-900 text-xl sm:text-2xl;
+}
+
+.weatherBlock {
+  @apply flex items-center justify-center sm:gap-2;
+}
+
+.temperature {
+  @apply text-slate-700 text-6xl md:text-8xl;
+}
+
+.description {
+  @apply text-slate-700 text-lg font-semibold;
+}
