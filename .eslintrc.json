@@ -21,7 +21,9 @@
   "plugins": ["react"],
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/prop-types": 0,
+    "react-hooks/exhaustive-deps": 0,
     "arrow-body-style": 0,
-    "react/function-component-definition": ["error", "never"]
+    "react/function-component-definition": 0
   }
 }

@@ -1,5 +1,5 @@
 .app {
   background: url("./img/sky.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: center bottom;
 }

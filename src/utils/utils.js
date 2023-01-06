@@ -5,4 +5,9 @@ const setTempteratureSign = (temperature) => {
   return roundedTemperature > 0 ? `+${roundedTemperature}` : roundedTemperature;
 };
 
-export { capitalize, setTempteratureSign };
+const getCountryByCode = (code) => {
+  const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
+  return regionNames.of(code);
+}
+
+export { capitalize, setTempteratureSign, getCountryByCode };

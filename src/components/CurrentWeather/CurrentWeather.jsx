@@ -1,43 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import WEATHER_ICONS from "../WeatherIcons/WeatherIcons";
 import getLocationByIPService from "../../services/getLocationByIPService";
-import getCurrentWeatherService from "../../services/getCurrentWeatherService";
+import getCurrentWeatherService from "../../services/getWeatherByCoordinatesService";
 import { capitalize, setTempteratureSign } from "../../utils/utils";
 import styles from "./CurrentWeather.module.css";
 
-function CurrentWeather() {
-  const [location, setLocation] = useState({
-    lat: null,
-    lon: null,
-    city: "",
-    country: "",
-  });
-  const [weatherData, setWeatherData] = useState({
-    temperature: null,
-    description: "",
-    icon: "",
-  });
-
+function CurrentWeather({
+  setLocation,
+  location,
+  weatherData,
+  setWeatherData,
+}) {
   useEffect(() => {
-    getLocationByIPService().then((data) => {
-      const { lat, lon, city, country } = data;
-      setLocation({ lat, lon, city, country });
-    });
+    getLocationByIPService()
+      .then((data) => {
+        const { lat, lon, city, country } = data;
+        setLocation({ lat, lon, city, country });
+      })
+      .catch((e) => e);
   }, []);
 
   useEffect(() => {
     const { lat, lon } = location;
     if (lat === null || lon === null) return;
-    getCurrentWeatherService(lat, lon).then((data) => {
-      const temperature = data.main.temp;
-      const { icon, description } = data.weather[0];
-      const capitalizedDescription = capitalize(description);
-      setWeatherData({
-        temperature,
-        description: capitalizedDescription,
-        icon,
-      });
-    });
+    getCurrentWeatherService(lat, lon)
+      .then((data) => {
+        const temperature = data.main.temp;
+        const { icon, description } = data.weather[0];
+        const capitalizedDescription = capitalize(description);
+        setWeatherData({
+          temperature,
+          description: capitalizedDescription,
+          icon,
+        });
+      })
+      .catch((e) => e);
   }, [location]);
 
   return (
