@@ -3,11 +3,7 @@ import styles from "./Button.module.css";
 
 const Button = ({ children, onClick }) => {
   return (
-    <button
-      type="submit"
-      onClick={onClick}
-      className={styles.button}
-    >
+    <button type="submit" onClick={onClick} className={styles.button}>
       {children}
     </button>
   );

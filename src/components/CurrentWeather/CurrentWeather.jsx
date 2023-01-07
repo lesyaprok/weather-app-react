@@ -4,12 +4,15 @@ import getLocationByIPService from "../../services/getLocationByIPService";
 import getCurrentWeatherService from "../../services/getWeatherByCoordinatesService";
 import { capitalize, setTempteratureSign } from "../../utils/utils";
 import styles from "./CurrentWeather.module.css";
+import NotSavedIcon from "../../ui/atoms/SavedIcon/NotSavedIcon";
 
 function CurrentWeather({
   setLocation,
   location,
   weatherData,
   setWeatherData,
+  onClick,
+  isSaved,
 }) {
   useEffect(() => {
     getLocationByIPService()
@@ -43,6 +46,13 @@ function CurrentWeather({
         "Loading data..."
       ) : (
         <div className={styles.currentWeather}>
+          <button
+            type="button"
+            className="absolute right-0 top-0"
+            onClick={onClick}
+          >
+            <NotSavedIcon isSaved={isSaved} />
+          </button>
           <p className={styles.location}>
             {location.city}, {location.country}
           </p>
