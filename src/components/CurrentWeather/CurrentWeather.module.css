@@ -1,5 +1,5 @@
 .currentWeather {
-  @apply relative pt-10 pb-6 px-12 bg-white bg-opacity-60 shadow-xl flex flex-col justify-center items-center rounded-md;
+  @apply relative pt-10 pb-6 px-12 bg-white bg-opacity-40 shadow-xl flex flex-col justify-center items-center rounded-md;
 }
 
 .location {

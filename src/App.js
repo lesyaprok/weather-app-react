@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "./ui/organisms/Header/Header";
 import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
 import getWeatherByNameService from "./services/getWeatherByNameService";
 import { getCountryByCode } from "./utils/utils";
 import SavedCities from "./components/SavedCities/SavedCities";
+import Settings from "./components/Settings/Settings";
 
 function App() {
   const [location, setLocation] = useState({
@@ -18,11 +20,17 @@ function App() {
     temperature: null,
     description: "",
     icon: "",
+    wind: "",
+    humidity: "",
+    sunset: "",
+    sunrise: "",
   });
 
   const [cityName, setCityName] = useState("");
 
   const [savedCities, setSavedCities] = useState([]);
+
+  const settings = ["feelsLike", "humidity", "sunrise", "sunset", "wind"];
 
   const isCitySaved = () => {
     return savedCities.find(
@@ -72,30 +80,42 @@ function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="app font-nunito bg-slate-800 min-h-screen flex justify-center items-center">
-      <Header
-        onChange={(e) => setCityName(e.target.value)}
-        onClick={getWeatherForCity}
-        onKeyDown={(e) => (e.keyCode === 13 ? getWeatherForCity() : null)}
-        cityName={cityName}
-        setIsSidebarOpen={setIsSidebarOpen}
-      />
-      <CurrentWeather
-        location={location}
-        setLocation={setLocation}
-        weatherData={weatherData}
-        setWeatherData={setWeatherData}
-        onClick={addCityToSaved}
-        isSaved={isCitySaved}
-      />
-      <SavedCities
-        isSidebarOpen={isSidebarOpen}
-        savedCities={savedCities}
-        removeCityFromSaved={removeCityFromSaved}
-        changeLocation={changeLocation}
-        closeSidebar={() => setIsSidebarOpen((prevState) => !prevState)}
-      />
-    </div>
+    <Router>
+      <div className="app font-nunito min-h-screen flex justify-center items-center">
+        <Header
+          onChange={(e) => setCityName(e.target.value)}
+          onClick={getWeatherForCity}
+          onKeyDown={(e) => (e.keyCode === 13 ? getWeatherForCity() : null)}
+          cityName={cityName}
+          setIsSidebarOpen={setIsSidebarOpen}
+        />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <CurrentWeather
+                location={location}
+                setLocation={setLocation}
+                weatherData={weatherData}
+                setWeatherData={setWeatherData}
+                onClick={addCityToSaved}
+                isSaved={isCitySaved}
+                settings={settings}
+              />
+            }
+          />
+          <Route path="/settings" element={<Settings settings={settings} />} />
+        </Routes>
+
+        <SavedCities
+          isSidebarOpen={isSidebarOpen}
+          savedCities={savedCities}
+          removeCityFromSaved={removeCityFromSaved}
+          changeLocation={changeLocation}
+          closeSidebar={() => setIsSidebarOpen((prevState) => !prevState)}
+        />
+      </div>
+    </Router>
   );
 }
 

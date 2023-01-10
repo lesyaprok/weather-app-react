@@ -8,6 +8,16 @@ const setTempteratureSign = (temperature) => {
 const getCountryByCode = (code) => {
   const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
   return regionNames.of(code);
-}
+};
 
-export { capitalize, setTempteratureSign, getCountryByCode };
+const getTimeFromTimestamp = (timestamp) => {
+  const date = new Date(1000 * timestamp);
+  return `${date.getHours()}:${date.getMinutes()}`;
+};
+
+export {
+  capitalize,
+  setTempteratureSign,
+  getCountryByCode,
+  getTimeFromTimestamp,
+};

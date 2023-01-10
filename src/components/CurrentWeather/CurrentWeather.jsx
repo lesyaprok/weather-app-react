@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import WEATHER_ICONS from "../WeatherIcons/WeatherIcons";
 import getLocationByIPService from "../../services/getLocationByIPService";
 import getCurrentWeatherService from "../../services/getWeatherByCoordinatesService";
-import { capitalize, setTempteratureSign } from "../../utils/utils";
+import {
+  capitalize,
+  getTimeFromTimestamp,
+  setTempteratureSign,
+} from "../../utils/utils";
 import styles from "./CurrentWeather.module.css";
 import NotSavedIcon from "../../ui/atoms/SavedIcon/NotSavedIcon";
 
@@ -13,6 +17,7 @@ function CurrentWeather({
   setWeatherData,
   onClick,
   isSaved,
+  settings,
 }) {
   useEffect(() => {
     getLocationByIPService()
@@ -28,13 +33,25 @@ function CurrentWeather({
     if (lat === null || lon === null) return;
     getCurrentWeatherService(lat, lon)
       .then((data) => {
-        const temperature = data.main.temp;
+        const {
+          temp: temperature,
+          feels_like: feelsLike,
+          humidity,
+        } = data.main;
+        const { sunset, sunrise } = data.sys;
         const { icon, description } = data.weather[0];
         const capitalizedDescription = capitalize(description);
+        const wind = Math.round(data.wind.speed);
+
         setWeatherData({
-          temperature,
+          temperature: Math.round(temperature),
           description: capitalizedDescription,
           icon,
+          wind: `${wind} m/s`,
+          feelsLike: `${Math.round(feelsLike)}°`,
+          sunset: getTimeFromTimestamp(sunset),
+          sunrise: getTimeFromTimestamp(sunrise),
+          humidity: `${humidity}%`,
         });
       })
       .catch((e) => e);
@@ -63,6 +80,16 @@ function CurrentWeather({
             {WEATHER_ICONS[weatherData.icon]}
           </div>
           <p className={styles.description}>{weatherData.description}</p>
+          <div className="mt-3 flex gap-3">
+            {settings.map((set) => (
+              <div key={set}>
+                <h3 className="font-medium">
+                  {set === "feelsLike" ? "feels like" : set}
+                </h3>
+                <p>{weatherData[set]}</p>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
