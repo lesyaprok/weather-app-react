@@ -80,15 +80,18 @@ function CurrentWeather({
             {WEATHER_ICONS[weatherData.icon]}
           </div>
           <p className={styles.description}>{weatherData.description}</p>
-          <div className="mt-3 flex gap-3">
-            {settings.map((set) => (
-              <div key={set}>
-                <h3 className="font-medium">
-                  {set === "feelsLike" ? "feels like" : set}
-                </h3>
-                <p>{weatherData[set]}</p>
-              </div>
-            ))}
+          <div className="mt-3 flex gap-3 justify-center items-canter flex-wrap">
+            {settings.map(
+              (set) =>
+                set.isChecked && (
+                  <div key={set.id}>
+                    <h3 className="font-medium text-canter">
+                      {set.value === "feelsLike" ? "feels like" : set.value}
+                    </h3>
+                    <p className="text-center">{weatherData[set.value]}</p>
+                  </div>
+                )
+            )}
           </div>
         </div>
       )}

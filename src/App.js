@@ -30,7 +30,21 @@ function App() {
 
   const [savedCities, setSavedCities] = useState([]);
 
-  const settings = ["feelsLike", "humidity", "sunrise", "sunset", "wind"];
+  const [settings, setSettings] = useState([
+    { id: 1, value: "feelsLike", isChecked: false },
+    { id: 2, value: "humidity", isChecked: false },
+    { id: 3, value: "sunrise", isChecked: false },
+    { id: 4, value: "sunset", isChecked: false },
+    { id: 5, value: "wind", isChecked: false },
+  ]);
+
+  const setOptions = (e, id) => {
+    setSettings((prevState) =>
+      prevState.map((set) =>
+        set.id === id ? { ...set, isChecked: e.target.checked } : set
+      )
+    );
+  };
 
   const isCitySaved = () => {
     return savedCities.find(
@@ -104,7 +118,10 @@ function App() {
               />
             }
           />
-          <Route path="/settings" element={<Settings settings={settings} />} />
+          <Route
+            path="/settings"
+            element={<Settings settings={settings} onChange={setOptions} />}
+          />
         </Routes>
 
         <SavedCities
