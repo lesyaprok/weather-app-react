@@ -60,8 +60,7 @@ function App() {
     const savedCity = isCitySaved();
     if (savedCity) {
       const filteredCities = savedCities.filter(
-        (city) =>
-          city.name !== savedCity.name && city.country !== savedCity.country
+        (city) => city.id !== savedCity.id
       );
       setSavedCities(filteredCities);
     } else {
