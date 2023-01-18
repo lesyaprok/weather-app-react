@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "./ui/organisms/Header/Header";
@@ -26,17 +26,28 @@ function App() {
     sunrise: "",
   });
 
+  const citiesFromLocalStorage =
+    JSON.parse(localStorage.getItem("savedCities")) || [];
+  const settingsFromLocalStorage = JSON.parse(localStorage.getItem("settings"));
   const [cityName, setCityName] = useState("");
+  const [savedCities, setSavedCities] = useState(citiesFromLocalStorage);
+  const [settings, setSettings] = useState(
+    settingsFromLocalStorage || [
+      { id: 1, value: "feelsLike", isChecked: false },
+      { id: 2, value: "humidity", isChecked: false },
+      { id: 3, value: "sunrise", isChecked: false },
+      { id: 4, value: "sunset", isChecked: false },
+      { id: 5, value: "wind", isChecked: false },
+    ]
+  );
 
-  const [savedCities, setSavedCities] = useState([]);
+  useEffect(() => {
+    localStorage.setItem("savedCities", JSON.stringify(savedCities));
+  }, [savedCities]);
 
-  const [settings, setSettings] = useState([
-    { id: 1, value: "feelsLike", isChecked: false },
-    { id: 2, value: "humidity", isChecked: false },
-    { id: 3, value: "sunrise", isChecked: false },
-    { id: 4, value: "sunset", isChecked: false },
-    { id: 5, value: "wind", isChecked: false },
-  ]);
+  useEffect(() => {
+    localStorage.setItem("settings", JSON.stringify(settings));
+  }, [settings]);
 
   const setOptions = (e, id) => {
     setSettings((prevState) =>
