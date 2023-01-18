@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./SavedCities.module.css";
 import CloseButton from "../../ui/molecules/CloseButton/CloseButton";
 import RemoveButton from "../../ui/molecules/RemoveButton/RemoveButton";
+import SearchInSaved from "./components/SearchInSaved/SearchInSaved";
 
 const SavedCities = ({
   savedCities,
@@ -10,9 +11,11 @@ const SavedCities = ({
   isSidebarOpen,
   closeSidebar,
 }) => {
+  const [saved, setSaved] = useState([]);
+
   const list = (
     <ul className={styles.list}>
-      {savedCities.map((city) => {
+      {saved.map((city) => {
         const { id, lat, lon, name, country } = city;
         return (
           <li
@@ -36,6 +39,7 @@ const SavedCities = ({
     >
       <CloseButton onClick={closeSidebar} />
       <h2 className={styles.title}>Favorites</h2>
+      <SearchInSaved setSaved={setSaved} savedCities={savedCities} />
       {savedCities.length ? (
         list
       ) : (

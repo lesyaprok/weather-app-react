@@ -127,6 +127,7 @@ function App() {
         <SavedCities
           isSidebarOpen={isSidebarOpen}
           savedCities={savedCities}
+          setSavedCities={setSavedCities}
           removeCityFromSaved={removeCityFromSaved}
           changeLocation={changeLocation}
           closeSidebar={() => setIsSidebarOpen((prevState) => !prevState)}
