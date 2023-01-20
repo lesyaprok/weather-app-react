@@ -1,5 +1,5 @@
 .currentWeather {
-  @apply relative pt-10 pb-6 px-12 bg-white bg-opacity-60 shadow-xl flex flex-col justify-center items-center rounded-md;
+  @apply relative pt-10 pb-6 px-12 bg-white bg-opacity-40 shadow-xl flex flex-col justify-center items-center rounded-md;
 }
 
 .location {
@@ -16,4 +16,8 @@
 
 .description {
   @apply text-slate-800 text-lg font-semibold;
+}
+
+.moreInfo {
+  @apply mt-3 flex gap-3 justify-center items-center flex-wrap;
 }

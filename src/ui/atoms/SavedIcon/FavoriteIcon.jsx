@@ -1,6 +1,6 @@
 import React from "react";
 
-const NotSavedIcon = ({ isSaved }) => {
+const FavoriteIcon = ({ isSaved }) => {
   const fillColor = !isSaved() ? "none" : "#23395d";
 
   return (
@@ -21,4 +21,4 @@ const NotSavedIcon = ({ isSaved }) => {
   );
 };
 
-export default NotSavedIcon;
+export default FavoriteIcon;

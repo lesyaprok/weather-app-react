@@ -4,11 +4,11 @@ const SavedIcon = ({ setIsSidebarOpen }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      fill="#23395d"
+      fill="#fff"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="#23395d"
-      className="w-10 h-10 cursor-pointer hover:-translate-y-1 transition-all duration-300"
+      stroke="#fff"
+      className="w-10 h-10 fill-slate-200 stroke-slate-200 cursor-pointer hover:-translate-y-1 transition-all duration-300"
       onClick={() => setIsSidebarOpen((prevState) => !prevState)}
     >
       <path

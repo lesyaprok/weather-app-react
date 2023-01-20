@@ -1,5 +1,8 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import HomeIcon from "../../atoms/HomeIcon/HomeIcon";
 import SavedIcon from "../../atoms/SavedIcon/SavedIcon";
+import SettingsIcon from "../../atoms/SettingsIcon/SettingsIcon";
 import SearchForm from "../../molecules/SearchForm/SearchForm";
 import styles from "./Header.module.css";
 
@@ -19,7 +22,15 @@ const Header = ({
           onKeyDown={onKeyDown}
           cityName={cityName}
         />
-        <SavedIcon setIsSidebarOpen={setIsSidebarOpen} />
+        <div className="flex gap-10">
+          <NavLink to="/">
+            <HomeIcon />
+          </NavLink>
+          <SavedIcon setIsSidebarOpen={setIsSidebarOpen} />
+          <NavLink to="/settings">
+            <SettingsIcon />
+          </NavLink>
+        </div>
       </div>
     </header>
   );
