@@ -22,13 +22,15 @@ const Header = ({
           onKeyDown={onKeyDown}
           cityName={cityName}
         />
-        <NavLink to="/">
-          <HomeIcon />
-        </NavLink>
-        <NavLink to="/settings">
-          <SettingsIcon />
-        </NavLink>
-        <SavedIcon setIsSidebarOpen={setIsSidebarOpen} />
+        <div className="flex gap-10">
+          <NavLink to="/">
+            <HomeIcon />
+          </NavLink>
+          <SavedIcon setIsSidebarOpen={setIsSidebarOpen} />
+          <NavLink to="/settings">
+            <SettingsIcon />
+          </NavLink>
+        </div>
       </div>
     </header>
   );

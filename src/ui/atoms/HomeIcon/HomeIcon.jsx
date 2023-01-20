@@ -8,7 +8,7 @@ const HomeIcon = () => {
       viewBox="0 0 24 24"
       strokeWidth={2}
       stroke="#fff"
-      className="w-10 h-10 cursor-pointer hover:-translate-y-1 transition-all duration-300"
+      className="w-10 h-10 stroke-slate-200 cursor-pointer hover:-translate-y-1 transition-all duration-300"
     >
       <path
         strokeLinecap="round"

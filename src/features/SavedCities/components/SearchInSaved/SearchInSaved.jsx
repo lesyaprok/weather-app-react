@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Search from "../../../../ui/atoms/Search/Search";
 
+const filterCities = (cities, searchedValue) =>
+  cities.filter((item) => {
+    const savedCity = item.name.toLowerCase();
+    return savedCity.startsWith(searchedValue.trim().toLowerCase());
+  });
+
 const SearchInSaved = ({ savedCities, setSaved }) => {
   const [searchedValue, setSearchedValue] = useState("");
   const searchInSaved = () => {
-    const filteredCities = savedCities.filter((item) => {
-      const savedCity = item.name.toLowerCase();
-      return savedCity.startsWith(searchedValue.trim().toLowerCase());
-    });
+    const filteredCities = filterCities(savedCities, searchedValue);
     setSaved(filteredCities);
   };
   useEffect(() => setSaved(savedCities), [savedCities]);

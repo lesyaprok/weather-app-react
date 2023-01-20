@@ -17,3 +17,7 @@
 .description {
   @apply text-slate-800 text-lg font-semibold;
 }
+
+.moreInfo {
+  @apply mt-3 flex gap-3 justify-center items-center flex-wrap;
+}

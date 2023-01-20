@@ -1,14 +1,8 @@
 import React, { useEffect } from "react";
-import WEATHER_ICONS from "../WeatherIcons/WeatherIcons";
 import getLocationByIPService from "../../services/getLocationByIPService";
 import getCurrentWeatherService from "../../services/getWeatherByCoordinatesService";
-import {
-  capitalize,
-  getTimeFromTimestamp,
-  setTempteratureSign,
-} from "../../utils/utils";
-import styles from "./CurrentWeather.module.css";
-import NotSavedIcon from "../../ui/atoms/SavedIcon/NotSavedIcon";
+import { capitalize, getTimeFromTimestamp } from "../../utils/utils";
+import CurrentWeatherModule from "./components/CurrentWeatherModule/CurrentWeatherModule";
 
 function CurrentWeather({
   setLocation,
@@ -62,38 +56,13 @@ function CurrentWeather({
       {weatherData.temperature === null || location.city === "" ? (
         "Loading data..."
       ) : (
-        <div className={styles.currentWeather}>
-          <button
-            type="button"
-            className="absolute right-0 top-0"
-            onClick={onClick}
-          >
-            <NotSavedIcon isSaved={isSaved} />
-          </button>
-          <p className={styles.location}>
-            {location.city}, {location.country}
-          </p>
-          <div className={styles.weatherBlock}>
-            <span className={styles.temperature}>
-              {setTempteratureSign(weatherData.temperature)}°
-            </span>
-            {WEATHER_ICONS[weatherData.icon]}
-          </div>
-          <p className={styles.description}>{weatherData.description}</p>
-          <div className="mt-3 flex gap-3 justify-center items-canter flex-wrap">
-            {settings.map(
-              (set) =>
-                set.isChecked && (
-                  <div key={set.id}>
-                    <h3 className="font-medium text-canter">
-                      {set.value === "feelsLike" ? "feels like" : set.value}
-                    </h3>
-                    <p className="text-center">{weatherData[set.value]}</p>
-                  </div>
-                )
-            )}
-          </div>
-        </div>
+        <CurrentWeatherModule
+          onClick={onClick}
+          isSaved={isSaved}
+          settings={settings}
+          weatherData={weatherData}
+          location={location}
+        />
       )}
     </div>
   );

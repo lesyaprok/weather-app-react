@@ -2,51 +2,44 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "./ui/organisms/Header/Header";
-import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
+import CurrentWeather from "./features/CurrentWeather/CurrentWeather";
 import getWeatherByNameService from "./services/getWeatherByNameService";
 import { getCountryByCode } from "./utils/utils";
-import SavedCities from "./components/SavedCities/SavedCities";
-import Settings from "./components/Settings/Settings";
+import SavedCities from "./features/SavedCities/SavedCities";
+import Settings from "./features/Settings/Settings";
+import {
+  INITIAL_LOCATION_OBJECT,
+  INITIAL_WEATHER_OBJECT,
+  SETTINGS,
+} from "./constants";
+
+const getDataFromStorage = (key) => {
+  return JSON.parse(localStorage.getItem(key));
+};
+
+const setStorageData = (key, data) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
 
 function App() {
-  const [location, setLocation] = useState({
-    lat: null,
-    lon: null,
-    city: "",
-    country: "",
-  });
+  const citiesFromLocalStorage = getDataFromStorage("savedCities");
+  const settingsFromLocalStorage = getDataFromStorage("settings");
 
-  const [weatherData, setWeatherData] = useState({
-    temperature: null,
-    description: "",
-    icon: "",
-    wind: "",
-    humidity: "",
-    sunset: "",
-    sunrise: "",
-  });
-
-  const citiesFromLocalStorage =
-    JSON.parse(localStorage.getItem("savedCities")) || [];
-  const settingsFromLocalStorage = JSON.parse(localStorage.getItem("settings"));
+  const [location, setLocation] = useState(INITIAL_LOCATION_OBJECT);
+  const [weatherData, setWeatherData] = useState(INITIAL_WEATHER_OBJECT);
   const [cityName, setCityName] = useState("");
-  const [savedCities, setSavedCities] = useState(citiesFromLocalStorage);
+  const [savedCities, setSavedCities] = useState(citiesFromLocalStorage || []);
   const [settings, setSettings] = useState(
-    settingsFromLocalStorage || [
-      { id: 1, value: "feelsLike", isChecked: false },
-      { id: 2, value: "humidity", isChecked: false },
-      { id: 3, value: "sunrise", isChecked: false },
-      { id: 4, value: "sunset", isChecked: false },
-      { id: 5, value: "wind", isChecked: false },
-    ]
+    settingsFromLocalStorage || SETTINGS
   );
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("savedCities", JSON.stringify(savedCities));
+    setStorageData("savedCities", savedCities);
   }, [savedCities]);
 
   useEffect(() => {
-    localStorage.setItem("settings", JSON.stringify(settings));
+    setStorageData("settings", settings);
   }, [settings]);
 
   const setOptions = (e, id) => {
@@ -101,7 +94,7 @@ function App() {
       .finally(() => setCityName(""));
   };
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const searchCity = (e) => (e.keyCode === 13 ? getWeatherForCity() : null);
 
   return (
     <Router>
@@ -109,7 +102,7 @@ function App() {
         <Header
           onChange={(e) => setCityName(e.target.value)}
           onClick={getWeatherForCity}
-          onKeyDown={(e) => (e.keyCode === 13 ? getWeatherForCity() : null)}
+          onKeyDown={searchCity}
           cityName={cityName}
           setIsSidebarOpen={setIsSidebarOpen}
         />

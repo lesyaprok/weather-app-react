@@ -8,7 +8,7 @@ const SavedIcon = ({ setIsSidebarOpen }) => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="#fff"
-      className="w-10 h-10 cursor-pointer hover:-translate-y-1 transition-all duration-300"
+      className="w-10 h-10 fill-slate-200 stroke-slate-200 cursor-pointer hover:-translate-y-1 transition-all duration-300"
       onClick={() => setIsSidebarOpen((prevState) => !prevState)}
     >
       <path
