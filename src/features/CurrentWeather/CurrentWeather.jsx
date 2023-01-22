@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { BallTriangle } from "react-loader-spinner";
 import getLocationByIPService from "../../services/getLocationByIPService";
 import getCurrentWeatherService from "../../services/getWeatherByCoordinatesService";
 import { capitalize, getTimeFromTimestamp } from "../../utils/utils";
@@ -54,7 +55,16 @@ function CurrentWeather({
   return (
     <div>
       {weatherData.temperature === null || location.city === "" ? (
-        "Loading data..."
+        <BallTriangle
+          height={100}
+          width={100}
+          radius={5}
+          color="#fff"
+          ariaLabel="ball-triangle-loading"
+          wrapperClass={{}}
+          wrapperStyle=""
+          visible
+        />
       ) : (
         <CurrentWeatherModule
           onClick={onClick}
