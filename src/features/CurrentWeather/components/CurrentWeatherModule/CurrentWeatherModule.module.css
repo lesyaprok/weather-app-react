@@ -1,5 +1,5 @@
 .currentWeather {
-  @apply relative pt-10 pb-6 px-12 bg-white bg-opacity-40 shadow-xl flex flex-col justify-center items-center rounded-md;
+  @apply relative max-w-[90vw] mx-auto pt-10 pb-6 px-12 bg-white bg-opacity-40 shadow-xl flex flex-col justify-center items-center rounded-md;
 }
 
 .location {
@@ -19,5 +19,5 @@
 }
 
 .moreInfo {
-  @apply mt-3 flex gap-3 justify-center items-center flex-wrap;
+  @apply mt-3 flex gap-5 justify-center items-center flex-wrap w-2/3;
 }

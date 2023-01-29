@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./CurrentWeatherModule.module.css";
 import AddToFavorites from "../../../../ui/molecules/AddToFavorites/AddToFavorites";
 import WEATHER_ICONS from "../WeatherIcons/WeatherIcons";
-import { setTempteratureSign } from "../../../../utils/utils";
+import { setTemperatureSign } from "../../../../utils/utils";
 
 const CurrentWeatherModule = ({
   onClick,
@@ -19,7 +19,7 @@ const CurrentWeatherModule = ({
   const weatherBlock = (
     <div className={styles.weatherBlock}>
       <span className={styles.temperature}>
-        {setTempteratureSign(weatherData.temperature)}°
+        {setTemperatureSign(weatherData.temperature)}°
       </span>
       {WEATHER_ICONS[weatherData.icon]}
     </div>
@@ -33,7 +33,7 @@ const CurrentWeatherModule = ({
         (set) =>
           set.isChecked && (
             <div key={set.id}>
-              <h3 className="font-medium text-canter">
+              <h3 className="font-semibold text-slate-800 text-center">
                 {set.value === "feelsLike" ? "feels like" : set.value}
               </h3>
               <p className="text-center">{weatherData[set.value]}</p>

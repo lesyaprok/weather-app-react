@@ -98,7 +98,7 @@ function App() {
 
   return (
     <Router>
-      <div className="app font-nunito min-h-screen flex justify-center items-center">
+      <div className="app font-nunito min-h-screen flex justify-center items-center overflow-hidden">
         <Header
           onChange={(e) => setCityName(e.target.value)}
           onClick={getWeatherForCity}

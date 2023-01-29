@@ -1,17 +1,17 @@
 import React from "react";
 import { ReactComponent as DayIcon } from "./animatedIcons/01d.svg";
 import { ReactComponent as NightIcon } from "./animatedIcons/01n.svg";
-import { ReactComponent as CloudDayIcon } from "./animatedIcons/cloudy-day-1.svg";
-import { ReactComponent as CloudNightIcon } from "./animatedIcons/cloudy-night-1.svg";
-import { ReactComponent as CloudIcon } from "./animatedIcons/cloudy.svg";
-import { ReactComponent as RainIcon } from "./animatedIcons/rainy-5.svg";
-import { ReactComponent as HeavyRainIcon } from "./animatedIcons/rainy-7.svg";
-import { ReactComponent as SnowIcon } from "./animatedIcons/snowy-6.svg";
-import { ReactComponent as ThunderIcon } from "./animatedIcons/thunder.svg";
-import { ReactComponent as MistIcon } from "./animatedIcons/mist.svg";
+import { ReactComponent as CloudDayIcon } from "./animatedIcons/02d.svg";
+import { ReactComponent as CloudNightIcon } from "./animatedIcons/02n.svg";
+import { ReactComponent as CloudIcon } from "./animatedIcons/03d.svg";
+import { ReactComponent as RainIcon } from "./animatedIcons/10d.svg";
+import { ReactComponent as HeavyRainIcon } from "./animatedIcons/09d.svg";
+import { ReactComponent as SnowIcon } from "./animatedIcons/13d.svg";
+import { ReactComponent as ThunderIcon } from "./animatedIcons/11d.svg";
+import { ReactComponent as MistIcon } from "./animatedIcons/50d.svg";
 
 const WEATHER_ICONS = {
-  "01d": <DayIcon />,
+  "01d": <DayIcon/>,
   "01n": <NightIcon />,
   "02d": <CloudDayIcon />,
   "02n": <CloudNightIcon />,
