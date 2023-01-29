@@ -1,5 +1,22 @@
+body {
+  overflow-x: hidden;
+}
+
 .app {
-  background: url("./img/clear.jpg");
+  background: url("./img/sky.jpg");
   background-size: cover;
   background-position: center bottom;
+}
+
+body::-webkit-scrollbar {
+  width: 15px;
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: linear-gradient(45deg, rgb(25, 37, 65), rgb(58, 86, 138));
+}
+
+body::-webkit-scrollbar-track {
+  background-color: rgb(208, 227, 253);
 }

@@ -1,9 +1,9 @@
 export const SETTINGS = [
   { id: 1, value: "feelsLike", isChecked: false },
   { id: 2, value: "humidity", isChecked: false },
-  { id: 3, value: "sunrise", isChecked: false },
-  { id: 4, value: "sunset", isChecked: false },
-  { id: 5, value: "wind", isChecked: false },
+  { id: 3, value: "wind", isChecked: false },
+  { id: 4, value: "sunrise", isChecked: false },
+  { id: 5, value: "sunset", isChecked: false },
 ];
 
 export const INITIAL_LOCATION_OBJECT = {

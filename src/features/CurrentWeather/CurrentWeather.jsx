@@ -1,9 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BallTriangle } from "react-loader-spinner";
 import getLocationByIPService from "../../services/getLocationByIPService";
-import getCurrentWeatherService from "../../services/getWeatherByCoordinatesService";
-import { capitalize, getTimeFromTimestamp } from "../../utils/utils";
+import getWeatherByCoordinatesService from "../../services/getWeatherByCoordinatesService";
+import {
+  capitalize,
+  getTimeFromTimestamp,
+  getDateFromTimestamp,
+  setTemperatureSign,
+} from "../../utils/utils";
 import CurrentWeatherModule from "./components/CurrentWeatherModule/CurrentWeatherModule";
+import getDailyForecastService from "../../services/getDailyForecastService";
+import HourlyWeatherModule from "./components/HourlyWeatherModule/HourlyWeatherModule";
+import WeekWeatherModule from "./components/WeekWeatherModule/WeekWeatherModule";
 
 function CurrentWeather({
   setLocation,
@@ -14,6 +22,10 @@ function CurrentWeather({
   isSaved,
   settings,
 }) {
+  const [weekWeather, setWeekWeather] = useState([]);
+  const [hourlyData, setHourlyData] = useState([]);
+  const [isLoad, setIsLoad] = useState(true);
+
   useEffect(() => {
     getLocationByIPService()
       .then((data) => {
@@ -24,9 +36,10 @@ function CurrentWeather({
   }, []);
 
   useEffect(() => {
+    setIsLoad(true);
     const { lat, lon } = location;
     if (lat === null || lon === null) return;
-    getCurrentWeatherService(lat, lon)
+    getWeatherByCoordinatesService(lat, lon)
       .then((data) => {
         const {
           temp: temperature,
@@ -37,6 +50,7 @@ function CurrentWeather({
         const { icon, description } = data.weather[0];
         const capitalizedDescription = capitalize(description);
         const wind = Math.round(data.wind.speed);
+        const { timezone } = data;
 
         setWeatherData({
           temperature: Math.round(temperature),
@@ -44,38 +58,85 @@ function CurrentWeather({
           icon,
           wind: `${wind} m/s`,
           feelsLike: `${Math.round(feelsLike)}°`,
-          sunset: getTimeFromTimestamp(sunset),
-          sunrise: getTimeFromTimestamp(sunrise),
+          sunset: getTimeFromTimestamp(sunset, timezone),
+          sunrise: getTimeFromTimestamp(sunrise, timezone),
           humidity: `${humidity}%`,
         });
       })
+      .catch((e) => e)
+      .finally(() => setIsLoad(false));
+  }, [location.lat, location.lon]);
+
+  useEffect(() => {
+    const { lat, lon } = location;
+    if (lat === null || lon === null) return;
+
+    getDailyForecastService(lat, lon)
+      .then((data) => {
+        const timezone = data.city?.timezone;
+        const filteredData = data.list.filter((day, i) => {
+          const [hours] = getTimeFromTimestamp(day.dt, timezone)
+            .split(":")
+            .map((e) => +e);
+          if (i === 0 && hours >= 15) return day;
+          return hours >= 15 && hours < 18;
+        });
+
+        const weekDataToSet = filteredData.map((day, i) => {
+          const { icon, description } = day.weather[0];
+          return {
+            id: i + 1,
+            date: getDateFromTimestamp(day.dt),
+            temp: setTemperatureSign(day.main.temp),
+            icon,
+            description,
+          };
+        });
+
+        const hourlyDataToSet = data.list.slice(0, 9).map((day, i) => {
+          const timestamp = day.dt;
+          const { icon } = day.weather[0];
+          return {
+            id: i + 1,
+            date: getTimeFromTimestamp(timestamp, timezone),
+            temp: setTemperatureSign(day.main.temp),
+            icon,
+          };
+        });
+
+        setHourlyData(hourlyDataToSet);
+        setWeekWeather(weekDataToSet);
+      })
       .catch((e) => e);
-  }, [location]);
+  }, [location.lat, location.lon]);
 
   return (
     <div>
-      {weatherData.temperature === null || location.city === "" ? (
+      {isLoad ? (
         <BallTriangle
-          height={100}
-          width={100}
+          height={200}
+          width={200}
           radius={5}
-          color="#fff"
+          color="rgb(10 41 59)"
           ariaLabel="ball-triangle-loading"
           wrapperClass={{}}
           wrapperStyle=""
           visible
         />
       ) : (
-        <CurrentWeatherModule
-          onClick={onClick}
-          isSaved={isSaved}
-          settings={settings}
-          weatherData={weatherData}
-          location={location}
-        />
+        <div className="mt-20 flex flex-col gap-6">
+          <CurrentWeatherModule
+            onClick={onClick}
+            isSaved={isSaved}
+            settings={settings}
+            weatherData={weatherData}
+            location={location}
+          />
+          <HourlyWeatherModule hourlyWeatherData={hourlyData} />
+          <WeekWeatherModule weekWeatherData={weekWeather} />
+        </div>
       )}
     </div>
   );
 }
-
 export default CurrentWeather;
