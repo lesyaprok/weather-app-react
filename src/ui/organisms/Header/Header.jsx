@@ -12,6 +12,7 @@ const Header = ({
   onKeyDown,
   cityName,
   setIsSidebarOpen,
+  isFound
 }) => {
   return (
     <header className={styles.header}>
@@ -21,6 +22,7 @@ const Header = ({
           onClick={onClick}
           onKeyDown={onKeyDown}
           cityName={cityName}
+          isFound={isFound}
         />
         <div className="flex gap-10">
           <NavLink to="/">

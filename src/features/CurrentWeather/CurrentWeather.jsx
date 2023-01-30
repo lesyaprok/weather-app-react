@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BallTriangle } from "react-loader-spinner";
+import { TailSpin } from "react-loader-spinner";
 import getLocationByIPService from "../../services/getLocationByIPService";
 import getWeatherByCoordinatesService from "../../services/getWeatherByCoordinatesService";
 import {
@@ -12,6 +12,8 @@ import CurrentWeatherModule from "./components/CurrentWeatherModule/CurrentWeath
 import getDailyForecastService from "../../services/getDailyForecastService";
 import HourlyWeatherModule from "./components/HourlyWeatherModule/HourlyWeatherModule";
 import WeekWeatherModule from "./components/WeekWeatherModule/WeekWeatherModule";
+
+const getInitialLocation = getLocationByIPService().then((data) => data);
 
 function CurrentWeather({
   setLocation,
@@ -27,7 +29,8 @@ function CurrentWeather({
   const [isLoad, setIsLoad] = useState(true);
 
   useEffect(() => {
-    getLocationByIPService()
+    if (location.lon !== null && location.lat !== null) return;
+    getInitialLocation
       .then((data) => {
         const { lat, lon, city, country } = data;
         setLocation({ lat, lon, city, country });
@@ -113,27 +116,33 @@ function CurrentWeather({
   return (
     <div>
       {isLoad ? (
-        <BallTriangle
-          height={200}
-          width={200}
-          radius={5}
-          color="rgb(10 41 59)"
-          ariaLabel="ball-triangle-loading"
+        <TailSpin
+          height={160}
+          width={160}
+          color="white"
+          radius={2}
+          ariaLabel="tail-spin-loading"
           wrapperClass={{}}
           wrapperStyle=""
           visible
         />
       ) : (
-        <div className="mt-20 flex flex-col gap-6">
+        <div className="mt-28 flex flex-col gap-6">
           <CurrentWeatherModule
             onClick={onClick}
             isSaved={isSaved}
-            settings={settings}
+            settings={settings.optional}
             weatherData={weatherData}
             location={location}
           />
-          <HourlyWeatherModule hourlyWeatherData={hourlyData} />
-          <WeekWeatherModule weekWeatherData={weekWeather} />
+          <HourlyWeatherModule
+            hourlyWeatherData={hourlyData}
+            settings={settings.blocks[1]}
+          />
+          <WeekWeatherModule
+            weekWeatherData={weekWeather}
+            settings={settings.blocks[0]}
+          />
         </div>
       )}
     </div>
