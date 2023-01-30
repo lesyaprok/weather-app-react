@@ -3,9 +3,9 @@ body {
 }
 
 .app {
-  background: url("./img/sky.jpg");
+  background: url("./img/cloud-night.jpg");
   background-size: cover;
-  background-position: center bottom;
+  background-position: center;
 }
 
 body::-webkit-scrollbar {

@@ -16,10 +16,10 @@ const WeekWeatherModule = ({ weekWeatherData }) => {
             <li key={day.id} className={styles.item}>
               <p className="text-center font-bold">{day.date}</p>
               <div className="flex flex-row items-center">
-                {WEATHER_ICONS[day.icon]}
                 <span className="text-lg font-semibold">
                   {getTemp(day.temp)}°
                 </span>
+                {WEATHER_ICONS[day.icon]}
               </div>
               <p>{day.description}</p>
             </li>

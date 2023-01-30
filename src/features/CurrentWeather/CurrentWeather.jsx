@@ -13,6 +13,8 @@ import getDailyForecastService from "../../services/getDailyForecastService";
 import HourlyWeatherModule from "./components/HourlyWeatherModule/HourlyWeatherModule";
 import WeekWeatherModule from "./components/WeekWeatherModule/WeekWeatherModule";
 
+const getInitialLocation = getLocationByIPService().then((data) => data);
+
 function CurrentWeather({
   setLocation,
   location,
@@ -27,7 +29,8 @@ function CurrentWeather({
   const [isLoad, setIsLoad] = useState(true);
 
   useEffect(() => {
-    getLocationByIPService()
+    if (location.lon !== null && location.lat !== null) return;
+    getInitialLocation
       .then((data) => {
         const { lat, lon, city, country } = data;
         setLocation({ lat, lon, city, country });
@@ -117,14 +120,14 @@ function CurrentWeather({
           height={200}
           width={200}
           radius={5}
-          color="rgb(10 41 59)"
+          color="#fff"
           ariaLabel="ball-triangle-loading"
           wrapperClass={{}}
           wrapperStyle=""
           visible
         />
       ) : (
-        <div className="mt-20 flex flex-col gap-6">
+        <div className="mt-28 flex flex-col gap-6">
           <CurrentWeatherModule
             onClick={onClick}
             isSaved={isSaved}

@@ -3,11 +3,11 @@
 }
 
 .weekModule {
-  @apply py-4 px-6 gap-6 max-w-[90vw] md:max-w-[80vw] overflow-x-scroll mx-auto flex mb-8 bg-white bg-opacity-40 shadow-xl rounded-md;
+  @apply py-4 px-10 gap-6 max-w-[90vw] md:max-w-[60vw] overflow-x-scroll mx-auto flex mb-8 bg-white bg-opacity-40 shadow-xl rounded-md;
 }
 
 .weekModule::-webkit-scrollbar {
-  width: 15px;
+  width: 5px;
 }
 
 .weekModule::-webkit-scrollbar-thumb {
@@ -22,5 +22,5 @@
 }
 
 .item {
-  @apply flex flex-col justify-center items-center pr-10;
+  @apply flex flex-col justify-center items-center text-center;
 }

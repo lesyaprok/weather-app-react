@@ -1,9 +1,9 @@
 .hourlyModule {
-  @apply max-w-[90vw] md:max-w-[80vw] py-4 px-2 flex overflow-x-scroll mx-auto bg-white bg-opacity-40 rounded-md shadow-xl;
+  @apply max-w-[90vw] md:max-w-[60vw] mt-10 py-4 px-2 flex overflow-x-scroll mx-auto bg-white bg-opacity-70 rounded-md shadow-xl;
 }
 
 .hourlyModule::-webkit-scrollbar {
-  width: 15px;
+  width: 10px;
 }
 
 .hourlyModule::-webkit-scrollbar-thumb {

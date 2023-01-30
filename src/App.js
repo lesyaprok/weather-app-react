@@ -33,6 +33,7 @@ function App() {
     settingsFromLocalStorage || SETTINGS
   );
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isFound, setIsFound] = useState(true);
 
   useEffect(() => {
     setStorageData("savedCities", savedCities);
@@ -42,12 +43,17 @@ function App() {
     setStorageData("settings", settings);
   }, [settings]);
 
-  const setOptions = (e, id) => {
-    setSettings((prevState) =>
-      prevState.map((set) =>
-        set.id === id ? { ...set, isChecked: e.target.checked } : set
-      )
+  const updateData = (array, e, id) => {
+    return array.map((set) =>
+      set.id === id ? { ...set, isChecked: e.target.checked } : set
     );
+  };
+  const setOptions = (e, id) => {
+    setSettings((prevState) => {
+      const optional = updateData(prevState.optional, e, id);
+      const blocks = updateData(prevState.blocks, e, id);
+      return { optional, blocks };
+    });
   };
 
   const isCitySaved = () => {
@@ -90,8 +96,11 @@ function App() {
         const city = data.name;
         changeLocation(lat, lon, city, country);
       })
-      .catch((e) => e)
-      .finally(() => setCityName(""));
+      .catch(() => setIsFound(false))
+      .finally(() => {
+        setCityName("");
+        setTimeout(() => setIsFound(true), 2000);
+      });
   };
 
   const searchCity = (e) => (e.keyCode === 13 ? getWeatherForCity() : null);
@@ -105,6 +114,7 @@ function App() {
           onKeyDown={searchCity}
           cityName={cityName}
           setIsSidebarOpen={setIsSidebarOpen}
+          isFound={isFound}
         />
         <Routes>
           <Route
@@ -133,7 +143,7 @@ function App() {
           setSavedCities={setSavedCities}
           removeCityFromSaved={removeCityFromSaved}
           changeLocation={changeLocation}
-          closeSidebar={() => setIsSidebarOpen((prevState) => !prevState)}
+          setSidebar={setIsSidebarOpen}
         />
       </div>
     </Router>
