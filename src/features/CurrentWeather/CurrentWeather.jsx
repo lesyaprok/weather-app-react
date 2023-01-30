@@ -120,14 +120,14 @@ function CurrentWeather({
           height={160}
           width={160}
           color="white"
-          radius={2}
+          radius={1}
           ariaLabel="tail-spin-loading"
           wrapperClass={{}}
           wrapperStyle=""
           visible
         />
       ) : (
-        <div className="mt-28 flex flex-col gap-6">
+        <div className="mt-36 sm:mt-28 flex flex-col gap-6">
           <CurrentWeatherModule
             onClick={onClick}
             isSaved={isSaved}

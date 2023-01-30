@@ -16,7 +16,7 @@ const Header = ({
 }) => {
   return (
     <header className={styles.header}>
-      <div className="flex items-center justify-between gap-10">
+      <div className="flex flex-col-reverse gap-4 sm:flex-row items-center justify-between sm:gap-2 lg:gap-4">
         <SearchForm
           onChange={onChange}
           onClick={onClick}
@@ -24,7 +24,7 @@ const Header = ({
           cityName={cityName}
           isFound={isFound}
         />
-        <div className="flex gap-10">
+        <div className="flex gap-6">
           <NavLink to="/">
             <HomeIcon />
           </NavLink>
