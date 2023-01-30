@@ -4,7 +4,7 @@ import Input from "../../atoms/Input/Input";
 
 const SearchForm = ({ onChange, onClick, onKeyDown, cityName, isFound }) => {
   return (
-    <div className="max-w-fit flex">
+    <div className="max-w-[80vw] flex">
       <Input onChange={onChange} onKeyDown={onKeyDown} cityName={cityName} />
       <SearchButton onClick={onClick} />
       {!isFound && <p className="absolute -bottom-4 text-white text-sm font-light">City not found. Please try again</p>}
