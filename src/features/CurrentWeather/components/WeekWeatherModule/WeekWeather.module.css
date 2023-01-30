@@ -1,5 +1,5 @@
 .title {
-  @apply mt-10 text-center text-xl text-slate-900 font-bold;
+  @apply mt-10 mb-4 text-center text-xl text-slate-900 font-bold;
 }
 
 .weekModule {

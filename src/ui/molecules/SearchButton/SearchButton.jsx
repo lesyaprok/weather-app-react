@@ -5,7 +5,7 @@ import SearchIcon from "../../atoms/SearchIcon/SearchIcon";
 const SearchButton = ({ onClick }) => {
   return (
     <div>
-      <Button onClick={onClick}>
+      <Button onClick={onClick} className="hover:bg-opacity-20">
         <SearchIcon />
       </Button>
     </div>

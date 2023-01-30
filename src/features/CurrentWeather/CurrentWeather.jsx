@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BallTriangle } from "react-loader-spinner";
+import { TailSpin } from "react-loader-spinner";
 import getLocationByIPService from "../../services/getLocationByIPService";
 import getWeatherByCoordinatesService from "../../services/getWeatherByCoordinatesService";
 import {
@@ -116,12 +116,12 @@ function CurrentWeather({
   return (
     <div>
       {isLoad ? (
-        <BallTriangle
-          height={200}
-          width={200}
-          radius={5}
-          color="#fff"
-          ariaLabel="ball-triangle-loading"
+        <TailSpin
+          height={160}
+          width={160}
+          color="white"
+          radius={2}
+          ariaLabel="tail-spin-loading"
           wrapperClass={{}}
           wrapperStyle=""
           visible
@@ -131,12 +131,18 @@ function CurrentWeather({
           <CurrentWeatherModule
             onClick={onClick}
             isSaved={isSaved}
-            settings={settings}
+            settings={settings.optional}
             weatherData={weatherData}
             location={location}
           />
-          <HourlyWeatherModule hourlyWeatherData={hourlyData} />
-          <WeekWeatherModule weekWeatherData={weekWeather} />
+          <HourlyWeatherModule
+            hourlyWeatherData={hourlyData}
+            settings={settings.blocks[1]}
+          />
+          <WeekWeatherModule
+            weekWeatherData={weekWeather}
+            settings={settings.blocks[0]}
+          />
         </div>
       )}
     </div>
