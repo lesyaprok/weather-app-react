@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/weather-app-react/static/css/main.b1505be4.css",
-    "main.js": "/weather-app-react/static/js/main.3314f1b5.js",
+    "main.js": "/weather-app-react/static/js/main.ed25be6b.js",
     "static/media/cloud-night.jpg": "/weather-app-react/static/media/cloud-night.a8ff062939d6f3afede1.jpg",
     "static/media/01d.svg": "/weather-app-react/static/media/01d.c39ef3c839883c8c54ce0a34866baa75.svg",
     "static/media/03d.svg": "/weather-app-react/static/media/03d.a6f3bae9519bd54273caa2996edac8ae.svg",
@@ -15,10 +15,10 @@
     "static/media/10d.svg": "/weather-app-react/static/media/10d.340ef4a689dcd2cb7888578051f13b21.svg",
     "index.html": "/weather-app-react/index.html",
     "main.b1505be4.css.map": "/weather-app-react/static/css/main.b1505be4.css.map",
-    "main.3314f1b5.js.map": "/weather-app-react/static/js/main.3314f1b5.js.map"
+    "main.ed25be6b.js.map": "/weather-app-react/static/js/main.ed25be6b.js.map"
   },
   "entrypoints": [
     "static/css/main.b1505be4.css",
-    "static/js/main.3314f1b5.js"
+    "static/js/main.ed25be6b.js"
   ]
 }
