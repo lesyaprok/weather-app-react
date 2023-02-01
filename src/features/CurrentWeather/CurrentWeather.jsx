@@ -32,7 +32,12 @@ function CurrentWeather({
     if (location.lon !== null && location.lat !== null) return;
     getInitialLocation
       .then((data) => {
-        const { lat, lon, city, country } = data;
+        const {
+          latitude: lat,
+          longitude: lon,
+          city,
+          country_name: country,
+        } = data;
         setLocation({ lat, lon, city, country });
       })
       .catch((e) => e);
