@@ -1,3 +1,8 @@
+# Weather application
+
+# Project gh-pages link
+[https://lesyaprok.github.io/weather-app-react/](https://lesyaprok.github.io/weather-app-react/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
